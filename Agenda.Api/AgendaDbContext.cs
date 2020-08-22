@@ -5,9 +5,11 @@ namespace Agenda
 {
     public class AgendaDbContext : DbContext
     {
-        DbSet<Pessoa> Pessoas { get; set; }
-        DbSet<Telefone> Telefones { get; set; }
-        DbSet<Endereco> Enderecos { get; set; }
+        DbSet<Cliente> Clientes { get; set; }
+        DbSet<Encomenda> Encomendas { get; set; }
+        DbSet<Doce> Doces { get; set; }
+        DbSet<TpDoce> TpDoces { get; set; }
+
 
         public AgendaDbContext(DbContextOptions options) : base(options)
         {
@@ -21,25 +23,31 @@ namespace Agenda
 
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Pessoa>(entity => {
+            modelBuilder.Entity<Cliente>(entity => {
                 entity.HasKey(o => o.Id);
                 entity.Property(o => o.Nome).HasMaxLength(100);
                 entity.Property(o => o.Sobrenome).HasMaxLength(200);
-                entity.Property(o => o.Nascimento).HasColumnType("date");
+                entity.Property(o => o.Telefone).HasMaxLength(11);
+                entity.Property(o => o.Celular).HasMaxLength(11);
+                entity.Property(o => o.Email).HasMaxLength(200);
+                entity.Property(o => o.Endereco).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<Endereco>(entity => {
+            modelBuilder.Entity<Encomenda>(entity => {
                 entity.HasKey(o => o.Id);
-                entity.Property(o => o.Logradouro).HasMaxLength(100);
-                entity.Property(o => o.Cidade).HasMaxLength(30);
-                entity.Property(o => o.Estado).HasMaxLength(30);
-                entity.Property(o => o.Numero).HasMaxLength(10);
-                entity.Property(o => o.CEP).HasMaxLength(10);
+                entity.Property(o => o.Quantidade).HasMaxLength(4);
+                entity.Property(o => o.Preco).HasMaxLength(10);
             });
 
-            modelBuilder.Entity<Telefone>(entity => {
+            modelBuilder.Entity<Doce>(entity => {
                 entity.HasKey(o => o.Id);
-                entity.Property(o => o.Numero).HasMaxLength(20);
+                entity.Property(o => o.Sabor).HasMaxLength(100);
+                entity.Property(o => o.Preco).HasMaxLength(10);
+            });
+            
+            modelBuilder.Entity<TpDoce>(entity => {
+                entity.HasKey(o => o.Id);
+                entity.Property(o => o.NomeProduto).HasMaxLength(100);
             });
         }
     }

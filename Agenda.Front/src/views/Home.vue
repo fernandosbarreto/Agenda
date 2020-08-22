@@ -1,13 +1,12 @@
 <template>
   <section>
-    <span class="is-size-4 pr-3">Agenda</span>
-    <b-button type="is-primary mr-3" @click="getPessoas" icon-left="refresh">Atualizar</b-button>
+    <!-- <b-button type="is-primary mr-3" @click="getPessoas" icon-left="refresh">Atualizar</b-button> -->
     <b-button type="is-primary" tag="router-link" to="/novapessoa" icon-left="account-plus">Novo</b-button>
     <b-table :data="pessoas">
       <template slot-scope="props">
         <b-table-column
           field="id"
-          label="Id"
+          label="Código"
           sortable
           numeric>
           {{props.row.id}}
@@ -30,10 +29,23 @@
           sortable>
           {{dataFormatada(props.row.nascimento)}}
         </b-table-column>
+         <b-table-column
+          field="estadoCivil"
+          label="Estado Civil"
+          sortable>
+          {{props.row.estadoCivil}}
+        </b-table-column>
+         <b-table-column
+          field="telefone"
+          label="Telefone"
+          sortable>
+          {{props.row.telefone.numero}}
+        </b-table-column>
         <b-table-column
           field="acoes"
           label="Ações">
-          <b-button type="is-primary mr-1" icon-left="account-edit" tag="router-link" :to="'/editarpessoa/' + props.row.id">Editar</b-button>
+          <b-button type="is-primary mr-1" icon-left="account" tag="router-link" :to="'/editarpessoa/' + props.row.id">Cliente</b-button>
+          <b-button type="is-primary mr-1 is-warning" icon-left="account-edit" tag="router-link" :to="'/editarpessoa/' + props.row.id">Editar</b-button>
           <b-button type="is-danger" icon-left="delete" @click="deletePessoa(props.row.id)">Excluir</b-button>
         </b-table-column>
       </template>
@@ -51,7 +63,8 @@ export default {
         { field: 'id', label: 'ID', numeric: true },
         { field: 'nome', label: 'Nome' },
         { field: 'sobrenome', label: 'Sobrenome' },
-        { field: 'nascimento', label: 'Nascimento' }
+        { field: 'nascimento', label: 'Nascimento' },
+        { field: 'estadoCivil', label: 'Estado Civil' }
       ]
     }
   },

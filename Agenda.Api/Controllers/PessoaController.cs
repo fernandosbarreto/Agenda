@@ -10,44 +10,44 @@ namespace Agenda.Controllers
     public class PessoaController : ControllerBase
     {
         protected AgendaDbContext _agendaDbContext;
-        protected DbSet<Pessoa> _dbSet;
+        protected DbSet<Cliente> _dbSet;
 
         public PessoaController(AgendaDbContext agendaDbContext)
         {
             _agendaDbContext = agendaDbContext;
-            _dbSet = agendaDbContext.Set<Pessoa>();
+            _dbSet = agendaDbContext.Set<Cliente>();
         }
-
+//O Get serve para solicitar os dados (buscar dados no banco)
         [HttpGet]
         public IActionResult Get()
         {
-            var pessoas = _dbSet.Include(o => o.Endereco)
-                .Include(o => o.Telefones)
+            var clientes = _dbSet.Include(o => o.Telefone)
                 .ToList();
-            return Ok(pessoas);
+            return Ok(clientes);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var pessoa = _dbSet.Include(o => o.Endereco)
-                .Include(o => o.Telefones)
+            var cliente = _dbSet
+                .Include(o => o.Telefone)
+                // .Include(o => o.Endereco)
                 .FirstOrDefault(o => o.Id == id);
 
-            if (pessoa != null)
-                return Ok(pessoa);
+            if (cliente != null)
+                return Ok(cliente);
             else
                 return NotFound();
         }
-
+//O post serve para CADASTRAR informações
         [HttpPost]
-        public IActionResult Post([FromBody] Pessoa pessoa)
+        public IActionResult Post([FromBody] Cliente cliente)
         {
             try
             {
-                pessoa.Id = 0;
+                cliente.Id = 0;
 
-                _dbSet.Add(pessoa);
+                _dbSet.Add(cliente);
 
                 _agendaDbContext.SaveChanges();
                 return Ok();
@@ -57,29 +57,29 @@ namespace Agenda.Controllers
                 return StatusCode(500, new { msg = "Erro ao executar operação" });
             }
         }
-
+//O Delete serve para APAGAR
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var pessoa = _dbSet.FirstOrDefault(o => o.Id == id);
+            var cliente = _dbSet.FirstOrDefault(o => o.Id == id);
 
-            if (pessoa == null)
+            if (cliente == null)
                 return NoContent();
 
-            _dbSet.Remove(pessoa);
+            _dbSet.Remove(cliente);
 
             _agendaDbContext.SaveChanges();
             
             return NoContent();
         }
-
+// O put serve para dar UPDATE (Atualizar informações)
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Pessoa pessoa)
+        public IActionResult Put(int id, [FromBody] Cliente cliente)
         {
             if (_dbSet.Any(o => o.Id == id))
             {
-                pessoa.Id = id;
-                _dbSet.Update(pessoa);
+                cliente.Id = id;
+                _dbSet.Update(cliente);
 
                 _agendaDbContext.SaveChanges();
 

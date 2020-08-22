@@ -9,6 +9,12 @@
         <b-field label="Sobrenome">
             <b-input v-model="pessoa.sobrenome"></b-input>
         </b-field>
+         <b-field label="Estado Civil">
+            <b-input v-model="pessoa.estadoCivil"></b-input>
+        </b-field>
+                <b-field label="Telefone">
+            <b-input v-model="pessoa.telefone.numero"></b-input>
+        </b-field>
         <b-field label="Data de Nascimento">
           <b-datepicker
               placeholder="Selecione a data de nascimento"
@@ -32,7 +38,11 @@ export default {
       pessoa: {
         nome: '',
         sobrenome: '',
-        nascimento: new Date()
+        nascimento: new Date(),
+        estadoCivil: '',
+        telefone: {
+          numero: ''
+        }
       }
     }
   },
@@ -43,13 +53,13 @@ export default {
       axios.post('http://localhost:5000/api/pessoa', this.pessoa).then(() => {
         this.isLoading = false
         this.$buefy.toast.open({
-          message: 'Pessoa adicionada com sucesso.',
+          message: 'Cliente adicionado com sucesso.',
           type: 'is-success'
         })
       }).catch(() => {
         this.isLoading = false
         this.$buefy.toast.open({
-          message: 'Ocorreu um erro ao adicionar a pesosa.',
+          message: 'Ocorreu um erro ao adicionar o cliente.',
           type: 'is-error'
         })
       })
