@@ -10,14 +10,14 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/novapessoa',
-    name: 'NovaPessoa',
-    component: () => import('../views/NovaPessoa.vue')
+    path: '/novocliente',
+    name: 'NovoCliente',
+    component: () => import('../views/NovoCliente.vue')
   },
   {
-    path: '/editarpessoa/:id',
-    name: 'Editaressoa',
-    component: () => import('../views/EditarPessoa.vue')
+    path: '/editarcliente/:id',
+    name: 'EditarCliente',
+    component: () => import('../views/EditarCliente.vue')
   }
 ]
 

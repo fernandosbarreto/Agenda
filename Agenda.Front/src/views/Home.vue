@@ -1,8 +1,8 @@
 <template>
   <section>
-    <!-- <b-button type="is-primary mr-3" @click="getPessoas" icon-left="refresh">Atualizar</b-button> -->
-    <b-button type="is-primary" tag="router-link" to="/novapessoa" icon-left="account-plus">Novo</b-button>
-    <b-table :data="pessoas">
+    <!-- <b-button type="is-primary mr-3" @click="getclientes" icon-left="refresh">Atualizar</b-button> -->
+    <b-button type="is-primary" tag="router-link" to="/novocliente" icon-left="account-plus">Novo</b-button>
+    <b-table :data="clietes">
       <template slot-scope="props">
         <b-table-column
           field="id"
@@ -44,9 +44,9 @@
         <b-table-column
           field="acoes"
           label="Ações">
-          <b-button type="is-primary mr-1" icon-left="account" tag="router-link" :to="'/editarpessoa/' + props.row.id">Cliente</b-button>
-          <b-button type="is-primary mr-1 is-warning" icon-left="account-edit" tag="router-link" :to="'/editarpessoa/' + props.row.id">Editar</b-button>
-          <b-button type="is-danger" icon-left="delete" @click="deletePessoa(props.row.id)">Excluir</b-button>
+          <b-button type="is-primary mr-1" icon-left="account" tag="router-link" :to="'/editarcliente/' + props.row.id">Cliente</b-button>
+          <b-button type="is-primary mr-1 is-warning" icon-left="account-edit" tag="router-link" :to="'/editarcliente/' + props.row.id">Editar</b-button>
+          <b-button type="is-danger" icon-left="delete" @click="deleteCliente(props.row.id)">Excluir</b-button>
         </b-table-column>
       </template>
 
@@ -58,7 +58,7 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      pessoas: [],
+      clientes: [],
       columns: [
         { field: 'id', label: 'ID', numeric: true },
         { field: 'nome', label: 'Nome' },
@@ -69,21 +69,21 @@ export default {
     }
   },
   methods: {
-    getPessoas () {
-      axios.get('http://localhost:5000/api/pessoa').then(ret => {
-        this.pessoas = ret.data
+    getCliente () {
+      axios.get('http://localhost:5000/api/cliente').then(ret => {
+        this.clientes = ret.data
       })
     },
-    deletePessoa (id) {
-      axios.delete('http://localhost:5000/api/pessoa/' + id).then(() => {
+    deleteCliente (id) {
+      axios.delete('http://localhost:5000/api/cliente/' + id).then(() => {
         this.$buefy.toast.open({
-          message: 'Pessoa deletada com sucesso.',
+          message: 'Cliente deletado com sucesso.',
           type: 'is-success'
         })
-        this.getPessoas()
+        this.getCliente()
       }).catch(() => {
         this.$buefy.toast.open({
-          message: 'erro ao deletar pessoa.',
+          message: 'erro ao deletar cliente.',
           type: 'is-danger'
         })
       })
@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted () {
-    this.getPessoas()
+    this.getCliente()
   }
 }
 </script>

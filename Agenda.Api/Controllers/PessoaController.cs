@@ -7,12 +7,12 @@ namespace Agenda.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PessoaController : ControllerBase
+    public class ClienteController : ControllerBase
     {
         protected AgendaDbContext _agendaDbContext;
         protected DbSet<Cliente> _dbSet;
 
-        public PessoaController(AgendaDbContext agendaDbContext)
+        public ClienteController(AgendaDbContext agendaDbContext)
         {
             _agendaDbContext = agendaDbContext;
             _dbSet = agendaDbContext.Set<Cliente>();
@@ -21,7 +21,8 @@ namespace Agenda.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var clientes = _dbSet.Include(o => o.Telefone)
+            var clientes = _dbSet
+            // .Include(o => o.Telefone)
                 .ToList();
             return Ok(clientes);
         }
@@ -30,7 +31,7 @@ namespace Agenda.Controllers
         public IActionResult Get(int id)
         {
             var cliente = _dbSet
-                .Include(o => o.Telefone)
+                // .Include(o => o.Telefone)
                 // .Include(o => o.Endereco)
                 .FirstOrDefault(o => o.Id == id);
 
