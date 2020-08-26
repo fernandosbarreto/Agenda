@@ -27,8 +27,8 @@ namespace Agenda
                 entity.HasKey(o => o.Id);
                 entity.Property(o => o.Nome).HasMaxLength(100);
                 entity.Property(o => o.Sobrenome).HasMaxLength(200);
-                entity.Property(o => o.Telefone).HasMaxLength(11);
-                entity.Property(o => o.Celular).HasMaxLength(11);
+                entity.Property(o => o.Telefone).HasMaxLength(12);
+                entity.Property(o => o.Celular).HasMaxLength(13);
                 entity.Property(o => o.Email).HasMaxLength(200);
                 entity.Property(o => o.Endereco).HasMaxLength(200);
             });
