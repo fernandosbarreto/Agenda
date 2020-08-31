@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- <b-button type="is-primary mr-3" @click="getclientes" icon-left="refresh">Atualizar</b-button> -->
-    <b-button type="is-primary" tag="router-link" to="/novocliente" icon-left="account-plus">Novo</b-button>
+    <b-button type="is-primary" tag="router-link" to="/novocliente" icon-left="account-plus">Novo cliente</b-button>
     <b-table :data="clientes">
       <template slot-scope="props">
         <b-table-column

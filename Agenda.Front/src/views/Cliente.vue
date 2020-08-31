@@ -11,7 +11,7 @@
       <div class="column is-narrow">
         <div class="box">
           <b-button type="is-primary mr-1 is-warning" icon-left="account-edit" tag="router-link" :to="'/editarcliente/' + this.clienteid">Editar</b-button>
-            <b-button type="is-primary" tag="router-link" to="/novocliente" icon-left="account-plus">Nova encomenda</b-button>
+            <b-button type="is-primary" tag="router-link" :to="'/novaencomenda/'+ this.clienteid" icon-left="plus">Nova encomenda</b-button>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
           </div>
           <div class="box">
             <p class="title is-5">Sobrenome: </p>
-            <b-labe class="subtitle">{{clientes.sobrenome}}</b-labe>
+            <p class="subtitle">{{clientes.sobrenome}}</p>
           </div>
         </div>
         <div class="column">
@@ -51,26 +51,27 @@
     </template>
   </section>
 </template>
+
 <script>
 import axios from 'axios'
 export default {
   data () {
     return {
       clientes: [],
+      encomendas: [],
       columns: [
-        { field: 'id', label: 'ID', numeric: true },
-        { field: 'nome', label: 'Nome' },
-        { field: 'sobrenome', label: 'Sobrenome' },
-        { field: 'endereco', label: 'Endereço' },
-        { field: 'email', label: 'E-mail' },
-        { field: 'endereco', label: 'Endereço' }
+        { field: 'id', label: 'Id', numeric: true },
+        { field: 'doce', label: 'Doce' },
+        { field: 'sabor', label: 'Sabor' },
+        { field: 'quantidade', label: 'Quantidade' },
+        { field: 'entrega', label: 'Entrega' }
       ]
     }
   },
   methods: {
-    getCliente () {
-      axios.get('http://localhost:5000/api/cliente/' + this.clienteid).then(ret => {
-        this.clientes = ret.data
+    getEncomendas () {
+      axios.get('http://localhost:5000/api/encomenda/' + this.clienteid).then(ret => {
+        this.encomendas = ret.data
       })
     }
     //,
@@ -85,7 +86,9 @@ export default {
     // }
   },
   mounted () {
-    this.getCliente()
+    console.log(this.GetEncomendas)
+    // this.getCliente()
+    this.getEncomendas()
     this.clienteid = this.$route.params.id
     axios.get('http://localhost:5000/api/cliente/' + this.clienteid).then(ret => {
       this.clientes = ret.data

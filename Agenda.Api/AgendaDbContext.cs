@@ -18,7 +18,7 @@ namespace Agenda
 
         public AgendaDbContext()
         {
-            
+
         }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder)
@@ -37,6 +37,7 @@ namespace Agenda
                 entity.HasKey(o => o.Id);
                 entity.Property(o => o.Quantidade).HasMaxLength(4);
                 entity.Property(o => o.Preco).HasMaxLength(10);
+                entity.Property(o => o.Entrega).HasColumnType("date");
             });
 
             modelBuilder.Entity<Doce>(entity => {
@@ -44,7 +45,7 @@ namespace Agenda
                 entity.Property(o => o.Sabor).HasMaxLength(100);
                 entity.Property(o => o.Preco).HasMaxLength(10);
             });
-            
+
             modelBuilder.Entity<TpDoce>(entity => {
                 entity.HasKey(o => o.Id);
                 entity.Property(o => o.NomeProduto).HasMaxLength(100);

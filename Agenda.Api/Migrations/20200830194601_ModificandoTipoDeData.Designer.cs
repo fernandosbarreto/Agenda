@@ -4,14 +4,16 @@ using Agenda;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Agenda.Migrations
 {
     [DbContext(typeof(AgendaDbContext))]
-    partial class AgendaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200830194601_ModificandoTipoDeData")]
+    partial class ModificandoTipoDeData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,8 @@ namespace Agenda.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Celular")
-                        .HasColumnType("nvarchar(13)")
+                    b.Property<int>("Celular")
+                        .HasColumnType("int")
                         .HasMaxLength(13);
 
                     b.Property<string>("Email")
@@ -46,8 +48,8 @@ namespace Agenda.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Telefone")
-                        .HasColumnType("nvarchar(12)")
+                    b.Property<int>("Telefone")
+                        .HasColumnType("int")
                         .HasMaxLength(12);
 
                     b.HasKey("Id");
@@ -96,12 +98,12 @@ namespace Agenda.Migrations
                     b.Property<DateTime>("Entrega")
                         .HasColumnType("date");
 
-                    b.Property<string>("Preco")
-                        .HasColumnType("nvarchar(10)")
+                    b.Property<double>("Preco")
+                        .HasColumnType("float")
                         .HasMaxLength(10);
 
-                    b.Property<string>("Quantidade")
-                        .HasColumnType("nvarchar(4)")
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int")
                         .HasMaxLength(4);
 
                     b.HasKey("Id");

@@ -4,14 +4,16 @@ using Agenda;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Agenda.Migrations
 {
     [DbContext(typeof(AgendaDbContext))]
-    partial class AgendaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200830163330_CriandoControllers_e_TelaDeEncomenda")]
+    partial class CriandoControllers_e_TelaDeEncomenda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,8 @@ namespace Agenda.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Celular")
-                        .HasColumnType("nvarchar(13)")
+                    b.Property<int>("Celular")
+                        .HasColumnType("int")
                         .HasMaxLength(13);
 
                     b.Property<string>("Email")
@@ -46,8 +48,8 @@ namespace Agenda.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Telefone")
-                        .HasColumnType("nvarchar(12)")
+                    b.Property<int>("Telefone")
+                        .HasColumnType("int")
                         .HasMaxLength(12);
 
                     b.HasKey("Id");
@@ -62,6 +64,9 @@ namespace Agenda.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IdTpDoce")
+                        .HasColumnType("int");
+
                     b.Property<double>("Preco")
                         .HasColumnType("float")
                         .HasMaxLength(10);
@@ -70,7 +75,7 @@ namespace Agenda.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int>("TpDoceId")
+                    b.Property<int?>("TpDoceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -87,21 +92,27 @@ namespace Agenda.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int?>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DoceId")
+                    b.Property<int?>("DoceId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Entrega")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Preco")
-                        .HasColumnType("nvarchar(10)")
+                    b.Property<int>("IdCliente")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdDoce")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Preco")
+                        .HasColumnType("float")
                         .HasMaxLength(10);
 
-                    b.Property<string>("Quantidade")
-                        .HasColumnType("nvarchar(4)")
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int")
                         .HasMaxLength(4);
 
                     b.HasKey("Id");
@@ -133,24 +144,18 @@ namespace Agenda.Migrations
                 {
                     b.HasOne("Agenda.Models.TpDoce", "TpDoce")
                         .WithMany()
-                        .HasForeignKey("TpDoceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TpDoceId");
                 });
 
             modelBuilder.Entity("Agenda.Models.Encomenda", b =>
                 {
                     b.HasOne("Agenda.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClienteId");
 
                     b.HasOne("Agenda.Models.Doce", "Doce")
                         .WithMany()
-                        .HasForeignKey("DoceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoceId");
                 });
 #pragma warning restore 612, 618
         }
